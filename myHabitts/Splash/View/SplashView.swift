@@ -20,7 +20,7 @@ struct SplashView: View {
         case .goToHomeScreen:
             Text("carregar tela principal")
         case .error(let msg):
-            Text("mostrar erro: \(msg)")
+            loadingView(error: msg)
         }
     }
 }
@@ -48,16 +48,25 @@ extension SplashView {
 }
 
 extension SplashView {
-    func loadingView() -> some View {
+    func loadingView(error: String? = nil) -> some View {
         ZStack {
             Image("logo")
                 .resizable()
                 .scaledToFit()
                 .ignoresSafeArea()
+            
+            if let error = error {
+                Text("")
+                    .alert(isPresented: .constant(true)) {
+                        Alert(title: Text("myHabbits"), message: Text(error), dismissButton: .default(Text("Ok")){
+                            
+                        })
+                    }
+            }
         }
     }
 }
 
 #Preview {
-    SplashView(state: .loading)
+    SplashView(state: .error("teste de erro no servidor"))
 }
