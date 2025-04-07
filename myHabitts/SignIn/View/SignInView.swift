@@ -17,31 +17,38 @@ struct SignInView: View {
     @State var navigationHidden = true
     
     var body: some View {
-        NavigationView {
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .center, spacing: 20) {
-                    Spacer(minLength: 36)
-                    VStack(alignment: .center, spacing: 8) {
-                        Image("logo")
-                            .resizable()
-                            .scaledToFit()
-                        Text("Login")
-                            .foregroundStyle(.orange)
-                            .font(Font.system(.title).bold())
-                            .padding(.bottom, 8)
-                        
-                        emailTextField
-                        passwordTextField
-                        loginButton
-                        registerButton
+        ZStack {
+            if case SignInUIState.goToHomeScreen = viewModel.uiState {
+                Text("Tela principal")
+            } else {
+                NavigationStack {
+                    ScrollView(showsIndicators: false) {
+                        VStack(alignment: .center, spacing: 20) {
+                            Spacer(minLength: 36)
+                            VStack(alignment: .center, spacing: 8) {
+                                Image("logo")
+                                    .resizable()
+                                    .scaledToFit()
+                                Text("Login")
+                                    .foregroundStyle(.orange)
+                                    .font(Font.system(.title).bold())
+                                    .padding(.bottom, 8)
+                                
+                                emailTextField
+                                passwordTextField
+                                loginButton
+                                registerButton
+                            }
+                        }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.horizontal, 32)
+                    .navigationBarTitle("Login", displayMode: .inline)
+                    .navigationBarHidden(true)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(.horizontal, 32)
-            .navigationBarTitle("Login", displayMode: .inline)
-            .navigationBarHidden(true)
         }
+      
     }
 }
 
@@ -62,7 +69,7 @@ extension SignInView {
 extension SignInView {
     var loginButton: some View {
         Button("Enter") {
-            //acontece o evento de click
+            viewModel.login(email: email, password: password)
         }
     }
 }
@@ -74,13 +81,11 @@ extension SignInView {
                 .foregroundColor(.gray)
                 .padding(.top, 48)
             ZStack {
-                NavigationLink(
-                    destination: Text("Register Screen"),
-                    tag: 1,
-                    selection: $action,
-                    label: {EmptyView()})
-                Button("Register") {
-                    self.action = 1
+                
+                NavigationLink {
+                    Text("Register Screen")
+                } label: {
+                    Text("Register")
                 }
             }
         }
