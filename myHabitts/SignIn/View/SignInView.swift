@@ -47,6 +47,14 @@ struct SignInView: View {
                     .navigationBarHidden(true)
                 }
             }
+            if case SignInUIState.error(let value) = viewModel.uiState {
+                Text("")
+                    .alert(isPresented: .constant(true)) {
+                        Alert(title: Text("Habit"), message: Text(value), dismissButton: .default(Text("Ok")) {
+                            
+                        })
+                    }
+            }
         }
       
     }
