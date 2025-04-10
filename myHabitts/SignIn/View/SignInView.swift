@@ -89,9 +89,8 @@ extension SignInView {
                 .foregroundColor(.gray)
                 .padding(.top, 48)
             ZStack {
-                
                 NavigationLink {
-                    Text("Register Screen")
+                    viewModel.signUpView()
                 } label: {
                     Text("Register")
                 }
