@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import Combine
 
 class SignUpViewModel: ObservableObject {
+    
+    var publisher: PassthroughSubject<Bool, Never>!
     
     @Published var uiState: SignUpUiState = .none
     
@@ -16,6 +19,7 @@ class SignUpViewModel: ObservableObject {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.uiState = .goToHomeScreen
+            self.publisher.send(true)
         }
     }
     
