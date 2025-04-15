@@ -51,7 +51,6 @@ struct SignInView: View {
                 Text("")
                     .alert(isPresented: .constant(true)) {
                         Alert(title: Text("Habit"), message: Text(value), dismissButton: .default(Text("Ok")) {
-                            
                         })
                     }
             }
@@ -62,8 +61,9 @@ struct SignInView: View {
 
 extension SignInView {
     var emailTextField: some View {
-        TextField("", text: $email)
-            .border(Color.black)
+//        TextField("", text: $email)
+//            .border(Color.black)
+        EditTextView(text: $email, placeholder: "e-mail", keyboard: .emailAddress, error: "invalid e-mail", failure: email.count < 5)
     }
 }
 
