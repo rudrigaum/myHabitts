@@ -25,7 +25,7 @@ struct SignUpView: View {
                 VStack(alignment: .center){
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Register")
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color("textColor"))
                             .font(Font.system(.title).bold())
                             .padding()
                         fullNameTextField
@@ -57,42 +57,61 @@ struct SignUpView: View {
 
 extension SignUpView {
     var fullNameTextField: some View {
-        TextField("", text: $fullName)
-            .border(Color.black)
+        EditTextView(text: $fullName,
+                     placeholder: "full name",
+                     keyboard: .alphabet,
+                     error: "invalid full name",
+                     failure: fullName.count < 3)
     }
 }
 extension SignUpView {
     var emailTextField: some View {
-        TextField("", text: $email)
-            .border(Color.black)
+        EditTextView(text: $email,
+                     placeholder: "e-mail",
+                     keyboard: .emailAddress,
+                     error: "invalid e-mail",
+                     failure: !email.isEmail())
     }
 }
 
 extension SignUpView {
     var passwordTextField: some View {
-        SecureField("", text: $password)
-            .border(Color.black)
+        EditTextView(text: $password,
+                      placeholder: "password",
+                      keyboard: .emailAddress,
+                      error: "password must be at least 8 characters",
+                      failure: password.count < 8,
+                      isSecure: true)
     }
 }
 
 extension SignUpView {
     var documentTextField: some View {
-        SecureField("", text: $document)
-            .border(Color.black)
+        EditTextView(text: $document,
+                     placeholder: "cpf",
+                     keyboard: .numberPad,
+                     error: "invalid cpf",
+                     failure: document.count != 11)
     }
 }
 
 extension SignUpView {
     var phoneTextField: some View {
-        SecureField("", text: $phone)
-            .border(Color.black)
+        EditTextView(text: $phone,
+                     placeholder: "phone",
+                     keyboard: .numberPad,
+                     error: "invalid phone",
+                     failure: phone.count < 10 || phone.count >= 12)
     }
 }
 
 extension SignUpView {
     var birthdayTextField: some View {
-        SecureField("", text: $birthday)
-            .border(Color.black)
+        EditTextView(text: $birthday,
+                     placeholder: "birthday",
+                     keyboard: .numberPad,
+                     error: "invalid birthday",
+                     failure: birthday.count != 10)
     }
 }
 
@@ -111,9 +130,12 @@ extension SignUpView {
 
 extension SignUpView {
     var registerButton: some View {
-        Button("Register") {
+        LoadingButtonView(action: {
             viewModel.signUp()
-        }
+        },
+        text: "Register",
+                          disabled: !email.isEmail() || password.count < 8 || fullName.count < 3 || document.count != 11 || phone.count < 10 || phone.count >= 12 || birthday.count != 10,
+        showProgress: self.viewModel.uiState == SignUpUiState.loading)
     }
 }
     
