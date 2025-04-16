@@ -13,6 +13,9 @@ class SignInViewModel: ObservableObject {
     private var cancellable: AnyCancellable?
     private var publisher = PassthroughSubject<Bool, Never>()
     
+    @Published var email = ""
+    @Published var password = ""
+    
     @Published var uiState: SignInUIState = .none
     
     init() {
@@ -29,7 +32,7 @@ class SignInViewModel: ObservableObject {
         cancellable?.cancel()
     }
     
-    func login(email: String, password: String) {
+    func login() {
         self.uiState = .loading
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.uiState = .success

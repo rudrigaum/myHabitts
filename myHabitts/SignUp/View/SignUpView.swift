@@ -9,14 +9,6 @@ import SwiftUI
 
 struct SignUpView: View {
     
-    @State var fullName = ""
-    @State var email = ""
-    @State var password = ""
-    @State var document = ""
-    @State var phone = ""
-    @State var birthday = ""
-    @State var gender = Gender.male
-    
     @ObservedObject var viewModel: SignUpViewModel
     
     var body: some View {
@@ -57,67 +49,67 @@ struct SignUpView: View {
 
 extension SignUpView {
     var fullNameTextField: some View {
-        EditTextView(text: $fullName,
+        EditTextView(text: $viewModel.fullName,
                      placeholder: "full name",
                      keyboard: .alphabet,
                      error: "invalid full name",
-                     failure: fullName.count < 3)
+                     failure: viewModel.fullName.count < 3)
     }
 }
 extension SignUpView {
     var emailTextField: some View {
-        EditTextView(text: $email,
+        EditTextView(text: $viewModel.email,
                      placeholder: "e-mail",
                      keyboard: .emailAddress,
                      error: "invalid e-mail",
-                     failure: !email.isEmail())
+                     failure: !viewModel.email.isEmail())
     }
 }
 
 extension SignUpView {
     var passwordTextField: some View {
-        EditTextView(text: $password,
+        EditTextView(text: $viewModel.password,
                       placeholder: "password",
                       keyboard: .emailAddress,
                       error: "password must be at least 8 characters",
-                      failure: password.count < 8,
+                      failure: viewModel.password.count < 8,
                       isSecure: true)
     }
 }
 
 extension SignUpView {
     var documentTextField: some View {
-        EditTextView(text: $document,
+        EditTextView(text: $viewModel.document,
                      placeholder: "cpf",
                      keyboard: .numberPad,
                      error: "invalid cpf",
-                     failure: document.count != 11)
+                     failure: viewModel.document.count != 11)
     }
 }
 
 extension SignUpView {
     var phoneTextField: some View {
-        EditTextView(text: $phone,
+        EditTextView(text: $viewModel.phone,
                      placeholder: "phone",
                      keyboard: .numberPad,
                      error: "invalid phone",
-                     failure: phone.count < 10 || phone.count >= 12)
+                     failure: viewModel.phone.count < 10 || viewModel.phone.count >= 12)
     }
 }
 
 extension SignUpView {
     var birthdayTextField: some View {
-        EditTextView(text: $birthday,
+        EditTextView(text: $viewModel.birthday,
                      placeholder: "birthday",
                      keyboard: .numberPad,
                      error: "invalid birthday",
-                     failure: birthday.count != 10)
+                     failure: viewModel.birthday.count != 10)
     }
 }
 
 extension SignUpView {
     var genderField: some View {
-        Picker("Gender", selection: $gender) {
+        Picker("Gender", selection: $viewModel.gender) {
             ForEach(Gender.allCases, id: \.self) { value in
                 Text(value.rawValue)
                     .tag(value)
@@ -134,7 +126,7 @@ extension SignUpView {
             viewModel.signUp()
         },
         text: "Register",
-                          disabled: !email.isEmail() || password.count < 8 || fullName.count < 3 || document.count != 11 || phone.count < 10 || phone.count >= 12 || birthday.count != 10,
+                          disabled: !viewModel.email.isEmail() || viewModel.password.count < 8 || viewModel.fullName.count < 3 || viewModel.document.count != 11 || viewModel.phone.count < 10 || viewModel.phone.count >= 12 || viewModel.birthday.count != 10,
         showProgress: self.viewModel.uiState == SignUpUiState.loading)
     }
 }

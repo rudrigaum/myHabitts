@@ -10,9 +10,6 @@ import SwiftUI
 struct SignInView: View {
     
     @ObservedObject var viewModel: SignInViewModel
-    
-    @State var email = ""
-    @State var password = ""
     @State var action: Int? = 0
     @State var navigationHidden = true
     
@@ -61,21 +58,21 @@ struct SignInView: View {
 
 extension SignInView {
     var emailTextField: some View {
-        EditTextView(text: $email,
+        EditTextView(text: $viewModel.email,
                      placeholder: "e-mail",
                      keyboard: .emailAddress,
                      error: "invalid e-mail",
-                     failure: !email.isEmail())
+                     failure: !viewModel.email.isEmail())
     }
 }
 
 extension SignInView {
     var passwordTextField: some View {
-        EditTextView(text: $password,
+        EditTextView(text: $viewModel.password,
                       placeholder: "password",
                       keyboard: .emailAddress,
                       error: "password must be at least 8 characters",
-                      failure: password.count < 8,
+                      failure: viewModel.password.count < 8,
                       isSecure: true)
     }
 }
@@ -83,10 +80,10 @@ extension SignInView {
 extension SignInView {
     var loginButton: some View {
         LoadingButtonView(action: {
-            viewModel.login(email: email, password: password)
+            viewModel.login()
         },
         text: "Enter",
-        disabled: !email.isEmail() || password.count < 8,
+                          disabled: !viewModel.email.isEmail() || viewModel.password.count < 8,
         showProgress: self.viewModel.uiState == SignInUIState.loading)
     }
 }
