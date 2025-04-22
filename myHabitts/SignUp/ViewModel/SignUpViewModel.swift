@@ -40,20 +40,17 @@ class SignUpViewModel: ObservableObject {
         
         let birthday = formatter.string(from: dateFormatted)
         
-        
-        
         WebService.postUSer(request: SignUpRequest(fullName: fullName,
                                                    email: email,
                                                    password: password,
                                                    document: document,
                                                    phone: phone,
                                                    birthday: birthday,
-                                                   gender: gender.index))
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            self.uiState = .goToHomeScreen
-//            self.publisher.send(true)
-//        }
+                                                   gender: gender.index)) { (successResponse, errorResponse) in
+            if let error = errorResponse {
+                self.uiState = .error(error.detail)
+            }
+        }
     }
     
 }
