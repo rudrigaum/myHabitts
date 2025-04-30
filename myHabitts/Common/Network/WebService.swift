@@ -77,7 +77,12 @@ enum WebService {
             switch result {
             case .failure(let error, let data):
                 if let data = data {
-                    print(String(data: data, encoding: .utf8))
+                    if error == .badRequest {
+                        print(String(data: data, encoding: .utf8))
+                        let decoder = JSONDecoder()
+                        let response = try? decoder.decode(SignUpResponse.self, from: data)
+                        print(response?.detail)
+                    }
                 }
                 break
             case .success(let data):
