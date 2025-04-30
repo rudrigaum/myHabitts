@@ -40,7 +40,12 @@ class SignUpViewModel: ObservableObject {
         
         let birthday = formatter.string(from: dateFormatted)
         
-        WebService.postUser(request: SignUpRequest(fullName: fullName, email: email, password: password, document: document, phone: phone, birthday: birthday, gender: gender.index))
+        WebService.postUser(request: SignUpRequest(fullName: fullName, email: email, password: password, document: document, phone: phone, birthday: birthday, gender: gender.index)) {(successResponse, errorResponse) in
+            
+            if let error = errorResponse {
+                self.uiState = .error(error.detail)
+            }
+        }
     }
     
 }
