@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct SignInErrorResponse: Decodable {
     let detail: SignInDetailErrorResponse
     

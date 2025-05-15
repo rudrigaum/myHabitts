@@ -52,7 +52,6 @@ class SignInViewModel: ObservableObject {
           self.uiState = .goToHomeScreen
         }
       }
-      
     }
   }
   

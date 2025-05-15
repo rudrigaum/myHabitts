@@ -15,5 +15,4 @@ struct SignInDetailErrorResponse: Decodable {
         case message
     }
  
-    
 }
