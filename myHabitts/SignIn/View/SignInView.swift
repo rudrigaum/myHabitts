@@ -15,7 +15,7 @@ struct SignInView: View {
     
     var body: some View {
         ZStack {
-            if case SignInUIState.success = viewModel.uiState {
+            if case SignInUIState.goToHomeScreen = viewModel.uiState {
                 Text("Tela principal")
             } else {
                 NavigationStack {
