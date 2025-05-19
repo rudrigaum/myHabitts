@@ -1,5 +1,5 @@
 //
-//  RemoteDataSource.swift
+//  SignInRemoteDataSource.swift
 //  myHabitts
 //
 //  Created by Rodrigo Cerqueira Reis on 15/05/25.
@@ -8,9 +8,9 @@
 import Foundation
 import Combine
 
-class RemoteDataSource {
+class SignInRemoteDataSource {
     
-    static var shared: RemoteDataSource  = RemoteDataSource()
+    static var shared: SignInRemoteDataSource  = SignInRemoteDataSource()
     
     private init() {
         

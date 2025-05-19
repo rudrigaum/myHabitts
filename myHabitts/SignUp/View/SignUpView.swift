@@ -133,5 +133,5 @@ extension SignUpView {
     
 
 #Preview {
-    SignUpView(viewModel: SignUpViewModel())
+    SignUpView(viewModel: SignUpViewModel(interector: SignUpInteractor()))
 }
