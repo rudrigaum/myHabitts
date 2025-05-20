@@ -32,7 +32,7 @@ class SplashViewModel: ObservableObject {
                 
                 if userAuth == nil {
                     self.uiState = .goToSignInScreen
-                } else if (Date().timeIntervalSince1970 > Date().timeIntervalSince1970 + Double(userAuth!.expires)) {
+                } else if (Date().timeIntervalSince1970 > Double(userAuth!.expires)) {
                     print("token expires")
                 } else {
                     self.uiState = .goToHomeScreen
