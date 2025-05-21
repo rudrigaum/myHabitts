@@ -78,8 +78,13 @@ class SignUpViewModel: ObservableObject {
                             case .finished:
                                 break
                             }
-                        } receiveValue: { successSignIn in
+                        } receiveValue: { success in
                             print(created)
+                            
+                            let auth = UserAuth(idToken: success.accessToken, refreshToken: success.refreshToken, expires: Date().timeIntervalSince1970 + Double(success.expires) , tokenType: success.tokenType)
+                            
+                            self.interector.insertAuth(userAuth: auth)
+                            
                             self.publisher.send(created)
                             self.uiState = .success
                             
