@@ -9,10 +9,32 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @ObservedObject var viewModel: HomeViewModel 
+    @ObservedObject var viewModel: HomeViewModel
+    
+    @State var selection = 0
     
     var body: some View {
-        Text("Olá home page")
+        TabView(selection: $selection) {
+            Text("Habits \(selection)")
+                .tabItem {
+                    Image(systemName: "square.grid.2x2")
+                    Text("Habits")
+                }.tag(0)
+            
+            Text("Graphics \(selection)")
+                .tabItem {
+                    Image(systemName: "chart.bar")
+                    Text("Graphics")
+                }.tag(1)
+            
+            Text("Profile \(selection)")
+                .tabItem {
+                    Image(systemName: "person.crop.circle")
+                    Text("Profile")
+                }.tag(2)
+        }
+        .background(Color.white)
+        .accentColor(Color.teal)
     }
 }
 
