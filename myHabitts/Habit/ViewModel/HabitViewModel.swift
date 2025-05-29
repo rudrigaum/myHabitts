@@ -11,4 +11,9 @@ class HabitViewModel: ObservableObject {
     
     
     @Published var uiState: HabitUIState = .emptyList
+    
+    @Published var title = "Alert"
+    @Published var headline = "Stay alert!"
+    @Published var description = "You are behind in habits"
+    
 }

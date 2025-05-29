@@ -16,7 +16,7 @@ struct SignInView: View {
     var body: some View {
         ZStack {
             if case SignInUIState.goToHomeScreen = viewModel.uiState {
-                Text("Tela principal")
+                HabitView(viewModel: HabitViewModel())
             } else {
                 NavigationStack {
                     ScrollView(showsIndicators: false) {
