@@ -92,6 +92,7 @@ extension HabitView {
         NavigationLink(destination: Text("Add screen")
             .frame(maxWidth: .infinity, maxHeight: .infinity )) {
                 Label("Create Habit", systemImage: "plus.app")
+                    .modifier(ButtonStyle())
                 
         }
     }
