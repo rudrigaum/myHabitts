@@ -44,6 +44,7 @@ struct HabitCardView: View {
                             .bold()
                     }
                 }.frame(maxWidth: 300, alignment: .leading)
+                    .padding()
                 
                 VStack(alignment: .leading, spacing: 4) {
                     
@@ -61,9 +62,14 @@ struct HabitCardView: View {
                 Rectangle()
                     .frame(width: 8)
                     .foregroundStyle(viewModel.state)
-                    .padding(.leading, 20)
+                    .padding(.leading, 10)
             }
+            .overlay(
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(Color.gray, lineWidth: 2)
+            )
         }
+        .padding(.vertical, 8)
     }
 }
 
