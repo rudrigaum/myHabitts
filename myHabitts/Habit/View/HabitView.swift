@@ -24,7 +24,6 @@ struct HabitView: View {
                             topContainer
                             addButton
                             
-                            
                             if case HabitUIState.emptyList = viewModel.uiState {
                                 
                                 Spacer(minLength: 40)
@@ -42,8 +41,18 @@ struct HabitView: View {
                                 LazyVStack {
                                     ForEach(rows, content: HabitCardView.init(viewModel:))
                                 }.padding(.horizontal, 14)
-                            } else if case HabitUIState.error = viewModel.uiState {
-                                
+                            } else if case HabitUIState.error(let msg) = viewModel.uiState {
+                                Text("")
+                                    .alert(isPresented: .constant(true)) {
+                                        Alert(
+                                            title: Text("Ops! \(msg)"),
+                                            message: Text("Try again?"),
+                                            primaryButton: .default(Text("Yes")) {
+                                                viewModel.onAppear()
+                                            },
+                                            secondaryButton: .cancel()
+                                        )
+                                    }
                             }
                         }
                     }.navigationTitle("My Habits")

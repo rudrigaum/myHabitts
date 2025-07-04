@@ -27,7 +27,8 @@ class HabitViewModel: ObservableObject {
         rows.append(HabitCardViewModel(id: 4, icon: "https://via.placeholder.com/150", date: "01/01/2021", name: "Play Guitar", label: "hours", value: "2", state: .green))
         rows.append(HabitCardViewModel(id: 5, icon: "https://via.placeholder.com/150", date: "01/01/2021", name: "Play Guitar", label: "hours", value: "2", state: .green))
         
-        self.uiState = .fullList(rows)
+//        self.uiState = .fullList(rows)
+        self.uiState = .error("Server Failure")
                 
         
     }

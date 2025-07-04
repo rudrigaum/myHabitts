@@ -16,7 +16,6 @@ struct HabitCardView: View {
     
     var body: some View {
         ZStack(alignment: .trailing) {
-            
             NavigationLink(
                 destination: Text("Destination"),
                 isActive: self.$action,
@@ -25,9 +24,7 @@ struct HabitCardView: View {
                 }
             )
             
-            
             HStack {
-                
                 Image(systemName: "pencil")
                     .padding(.horizontal, 8)
                 
@@ -67,6 +64,7 @@ struct HabitCardView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 6)
                     .stroke(Color.gray, lineWidth: 2)
+                    .shadow(color: .gray, radius: 2, x: 2.0, y: 2.0)
             )
         }
         .padding(.vertical, 8)
@@ -74,9 +72,7 @@ struct HabitCardView: View {
 }
 
 #Preview {
-    
     NavigationView {
-     
         List {
             HabitCardView(viewModel: HabitCardViewModel(id: 1, icon: "https://via.placeholder.com/150", date: "01/01/2021", name: "Play Guitar", label: "hours", value: "2", state: .green))
             HabitCardView(viewModel: HabitCardViewModel(id: 1, icon: "https://via.placeholder.com/150", date: "01/01/2021", name: "Play Guitar", label: "hours", value: "2", state: .green))
