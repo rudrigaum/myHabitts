@@ -14,4 +14,20 @@ extension String {
         
         return NSPredicate(format: "SELF MATCHES %@", regEx).evaluate(with: self)
     }
+    
+    func toDate(sourcePattern source: String, destPattern dest: String) -> String? {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "dd/MM/yyyy"
+        
+        let dateFormatted = formatter.date(from: self)
+        
+        guard let dateFormatted = dateFormatted else {
+            return nil
+        }
+        
+        formatter.dateFormat = dest
+        
+        return formatter.string(from: dateFormatted)
+    }
 }
